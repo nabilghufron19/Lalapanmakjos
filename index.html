@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warung Lalapan Mak Joss — Pedas Gurih Bikin Nagih</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --hijau:#1a3a1a;
+  --hijau2:#2d5a2d;
+  --hijau3:#4a8c3f;
+  --lime:#7ab648;
+  --kuning:#f5c842;
+  --oranye:#e8621a;
+  --oranye2:#ff8040;
+  --merah:#c0392b;
+  --krem:#fdf8f0;
+  --krem2:#f5ede0;
+  --putih:#fff;
+  --text:#1a2e1a;
+  --muted:#5a7a4a;
+  --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--krem);color:var(--text);overflow-x:hidden}
+
+/* NOISE */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:999;opacity:.4;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 56px;
+  background:rgba(26,58,26,0.96);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(122,182,72,0.18);
+  transition:padding .35s ease, box-shadow .35s ease;
+}
+nav.scrolled{padding:12px 56px;box-shadow:0 6px 40px rgba(26,58,26,0.25)}
+
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:900;letter-spacing:-.02em;
+  color:var(--kuning);text-decoration:none;display:flex;align-items:center;gap:8px;
+}
+.nav-logo span{color:#fff}
+
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{
+  font-size:.8rem;font-weight:600;letter-spacing:.1em;
+  color:rgba(255,255,255,.6);text-decoration:none;text-transform:uppercase;
+  position:relative;padding-bottom:4px;transition:color .25s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;
+  background:var(--lime);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;
+}
+.nav-links a:hover{color:var(--kuning)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+.nav-cta{
+  background:var(--oranye)!important;color:#fff!important;
+  padding:10px 24px;border-radius:50px;
+  transition:background .25s, transform .2s!important;
+}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:var(--kuning)!important;color:var(--text)!important;transform:translateY(-2px)}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--kuning);border-radius:2px;transition:.3s}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{
+  display:none;position:fixed;inset:0;
+  background:var(--hijau);z-index:800;
+  flex-direction:column;align-items:center;justify-content:center;gap:36px;
+}
+.mobile-nav.open{display:flex}
+.mobile-nav a{
+  font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;
+  color:#fff;text-decoration:none;transition:color .2s;
+}
+.mobile-nav a:hover{color:var(--kuning)}
+.mobile-close{
+  position:absolute;top:22px;right:26px;
+  background:none;border:none;font-size:2rem;color:rgba(255,255,255,.5);cursor:pointer;
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  background:var(--hijau);position:relative;overflow:hidden;
+  padding:110px 56px 70px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 700px 500px at 80% 50%,rgba(122,182,72,.15),transparent),
+    radial-gradient(ellipse 500px 400px at 5% 80%,rgba(232,98,26,.1),transparent);
+}
+.hero-pattern{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(rgba(122,182,72,.12) 1px,transparent 1px);
+  background-size:30px 30px;
+}
+.hero-inner{position:relative;z-index:2;max-width:580px}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,200,66,.12);border:1px solid rgba(245,200,66,.3);
+  border-radius:50px;padding:7px 18px;margin-bottom:26px;
+  font-size:.7rem;font-weight:700;color:var(--kuning);letter-spacing:.15em;text-transform:uppercase;
+  animation:fadeUp .7s ease both;
+}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,6.5vw,88px);font-weight:900;line-height:.95;
+  letter-spacing:-2px;color:#fff;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero h1 .kuning{color:var(--kuning)}
+.hero h1 .italic{font-style:italic;color:var(--lime)}
+
+.hero-sub{
+  font-size:16px;font-weight:300;color:rgba(255,255,255,.55);
+  line-height:1.8;margin:26px 0 38px;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-sub strong{color:rgba(255,255,255,.9);font-weight:600}
+
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .7s .3s ease both}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--oranye),var(--merah));
+  color:#fff;font-weight:700;font-size:.9rem;
+  padding:15px 32px;border-radius:50px;text-decoration:none;
+  transition:all .25s;border:none;cursor:pointer;font-family:inherit;letter-spacing:.04em;
+  box-shadow:0 6px 24px rgba(232,98,26,.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(232,98,26,.45)}
+.btn-ghost{
+  background:transparent;color:rgba(255,255,255,.8);font-weight:600;font-size:.9rem;
+  padding:14px 28px;border-radius:50px;text-decoration:none;
+  border:1.5px solid rgba(255,255,255,.2);transition:all .25s;
+}
+.btn-ghost:hover{border-color:var(--kuning);color:var(--kuning)}
+
+/* Hero visual */
+.hero-right{
+  position:absolute;right:0;top:0;bottom:0;width:46%;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-visual{
+  position:relative;width:420px;height:420px;
+  animation:float 4.5s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.big-emoji{
+  font-size:190px;position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  filter:drop-shadow(0 20px 50px rgba(122,182,72,.3));
+}
+.glow-ring,.glow-ring2{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px solid rgba(122,182,72,.2);
+}
+.glow-ring{width:340px;height:340px;box-shadow:0 0 80px rgba(122,182,72,.08)}
+.glow-ring2{width:260px;height:260px;border-color:rgba(245,200,66,.15)}
+.orbit{position:absolute;inset:0;animation:spin 14s linear infinite}
+.orbit-item{position:absolute;font-size:36px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3))}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── STATS ── */
+.stats{
+  background:var(--oranye);padding:22px 56px;
+  display:flex;
+}
+.stat{flex:1;text-align:center;padding:0 20px;border-right:1.5px solid rgba(255,255,255,.25)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1}
+.stat-lbl{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.65);margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+
+/* ── SECTION BASE ── */
+section{padding:88px 56px}
+.container{max-width:1180px;margin:0 auto}
+.section-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.section-eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--lime)}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.03em;
+  line-height:1.05;margin-bottom:12px;color:var(--hijau);
+}
+.section-title em{font-style:italic;color:var(--oranye)}
+.section-sub{font-size:.92rem;font-weight:300;color:var(--muted);max-width:460px;line-height:1.85;margin-bottom:48px}
+
+/* ── MENU TABS ── */
+.menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.menu-tab{
+  padding:9px 22px;border-radius:50px;
+  font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;border:1.5px solid transparent;
+  transition:all .2s;background:transparent;color:var(--muted);font-family:inherit;
+}
+.menu-tab:hover{border-color:var(--lime);color:var(--hijau2)}
+.menu-tab.active{background:var(--hijau);color:#fff;border-color:var(--hijau)}
+
+/* ── MENU GRID ── */
+#menu{background:var(--krem)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+
+.menu-card{
+  background:#fff;border-radius:var(--radius);overflow:hidden;
+  transition:transform .3s,box-shadow .3s;cursor:pointer;
+  border:2px solid transparent;
+  box-shadow:0 4px 18px rgba(26,58,26,.06);
+}
+.menu-card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(26,58,26,.14);border-color:var(--lime)}
+
+.menu-thumb{
+  height:165px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.food-emoji{font-size:70px;filter:drop-shadow(0 8px 16px rgba(0,0,0,.14));position:relative;z-index:1;transition:transform .35s}
+.menu-card:hover .food-emoji{transform:scale(1.12) rotate(-5deg)}
+.thumb-bg{position:absolute;width:160px;height:160px;border-radius:50%;opacity:.1}
+
+.menu-body{padding:18px}
+.menu-badge{
+  display:inline-block;font-size:.62rem;font-weight:700;
+  padding:3px 10px;border-radius:50px;margin-bottom:8px;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.badge-hot{background:rgba(192,57,43,.1);color:var(--merah)}
+.badge-best{background:rgba(122,182,72,.13);color:var(--hijau2)}
+.badge-new{background:rgba(245,200,66,.2);color:#9a7800}
+.badge-pedes{background:rgba(232,98,26,.12);color:var(--oranye)}
+
+.menu-nama{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:5px;color:var(--hijau)}
+.menu-desc{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:13px}
+.menu-footer{display:flex;align-items:center;justify-content:space-between}
+.menu-harga{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;color:var(--oranye)}
+.menu-harga span{font-size:.72rem;font-weight:400;color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif}
+.add-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--hijau);color:#fff;font-size:1.2rem;font-weight:700;
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.add-btn:hover{background:var(--oranye);transform:scale(1.12)}
+
+/* ── ANDALAN SECTION ── */
+#andalan{background:var(--hijau)}
+#andalan .section-title{color:#fff}
+#andalan .section-eyebrow{color:var(--kuning)}
+#andalan .section-sub{color:rgba(255,255,255,.45)}
+
+.andalan-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.andalan-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(122,182,72,.15);
+  border-radius:var(--radius);padding:22px;display:flex;gap:16px;align-items:center;
+  transition:all .3s;cursor:pointer;
+}
+.andalan-card:hover{background:rgba(122,182,72,.08);border-color:rgba(122,182,72,.35);transform:translateX(5px)}
+.andalan-emoji{font-size:46px;flex-shrink:0}
+.andalan-nama{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:4px}
+.andalan-desc{font-size:.78rem;color:rgba(255,255,255,.42);line-height:1.55}
+.andalan-harga{font-size:.9rem;font-weight:700;color:var(--kuning);margin-top:7px}
+
+/* ── PAKET ── */
+#paket{background:var(--krem2)}
+.paket-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.paket-card{
+  background:#fff;border-radius:var(--radius);padding:30px;text-align:center;
+  border:2px solid rgba(26,58,26,.07);transition:all .3s;position:relative;overflow:hidden;
+}
+.paket-card.featured{background:linear-gradient(135deg,var(--hijau),var(--hijau2));border-color:var(--kuning)}
+.paket-card.featured .paket-nama,.paket-card.featured .paket-harga{color:#fff}
+.paket-card.featured .paket-sub,.paket-card.featured .paket-isi li{color:rgba(255,255,255,.5)}
+.paket-card:hover{transform:translateY(-5px);box-shadow:0 18px 50px rgba(26,58,26,.12)}
+
+.paket-ribbon{
+  position:absolute;top:16px;right:-30px;
+  background:var(--kuning);color:var(--text);font-size:.62rem;font-weight:800;
+  padding:6px 44px;transform:rotate(35deg);letter-spacing:.08em;text-transform:uppercase;
+}
+.paket-emoji{font-size:3rem;margin-bottom:14px}
+.paket-nama{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--hijau);margin-bottom:4px}
+.paket-sub{font-size:.76rem;color:var(--muted);margin-bottom:16px}
+.paket-isi{list-style:none;margin-bottom:20px;text-align:left}
+.paket-isi li{
+  font-size:.8rem;color:var(--text);padding:6px 0;
+  border-bottom:1px dashed rgba(26,58,26,.08);
+  display:flex;align-items:center;gap:8px;
+}
+.paket-isi li::before{content:'✓';color:var(--lime);font-weight:700;font-size:.7rem}
+.paket-harga{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--oranye);margin-bottom:16px}
+.paket-btn{
+  width:100%;background:var(--hijau);color:#fff;font-weight:700;font-size:.8rem;
+  padding:12px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;
+  transition:all .2s;text-transform:uppercase;letter-spacing:.06em;
+}
+.paket-btn:hover{background:var(--oranye)}
+.paket-card.featured .paket-btn{background:var(--kuning);color:var(--text)}
+.paket-card.featured .paket-btn:hover{background:#fff}
+
+/* ── CARA ORDER ── */
+#cara{background:#fff}
+.cara-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.cara-step{text-align:center;padding:28px 16px;position:relative}
+.cara-step:not(:last-child)::after{
+  content:'→';position:absolute;right:-10px;top:28px;
+  font-size:20px;color:rgba(26,58,26,.15);
+}
+.step-num{
+  width:54px;height:54px;border-radius:16px;
+  background:linear-gradient(135deg,var(--hijau3),var(--hijau));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:#fff;
+  margin:0 auto 14px;
+}
+.step-emoji{font-size:1.7rem;margin-bottom:10px}
+.step-title{font-size:.88rem;font-weight:700;color:var(--hijau);margin-bottom:5px}
+.step-desc{font-size:.76rem;color:var(--muted);line-height:1.65}
+
+/* ── SAMBAL SECTION ── */
+#sambal{background:linear-gradient(135deg,var(--merah),#8b1a10)}
+.sambal-inner{text-align:center;position:relative}
+.sambal-inner h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3.4rem);font-weight:900;
+  color:#fff;letter-spacing:-.03em;margin-bottom:12px;
+}
+.sambal-inner h2 em{font-style:italic;color:var(--kuning)}
+.sambal-inner p{color:rgba(255,255,255,.6);font-size:.95rem;font-weight:300;margin-bottom:36px}
+.sambal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.sambal-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius);padding:22px 16px;text-align:center;
+  transition:all .25s;cursor:pointer;
+}
+.sambal-card:hover{background:rgba(255,255,255,.13);transform:translateY(-4px)}
+.sambal-emoji{font-size:2.8rem;margin-bottom:10px}
+.sambal-nama{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:5px}
+.sambal-desc{font-size:.74rem;color:rgba(255,255,255,.45);line-height:1.5}
+.sambal-level{display:flex;gap:3px;justify-content:center;margin-top:8px}
+.chili{font-size:.85rem}
+
+/* ── TESTIMONI ── */
+#ulasan{background:var(--krem)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.testi-card{
+  background:#fff;border-radius:var(--radius);padding:24px;
+  border:1px solid rgba(122,182,72,.12);
+  box-shadow:0 4px 18px rgba(26,58,26,.05);
+  transition:transform .3s;
+}
+.testi-card:hover{transform:translateY(-4px)}
+.testi-stars{color:var(--kuning);font-size:.95rem;letter-spacing:2px;margin-bottom:12px}
+.testi-text{font-size:.83rem;color:var(--text);line-height:1.78;margin-bottom:16px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-av{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--lime),var(--hijau));
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0;
+}
+.testi-name{font-size:.82rem;font-weight:700;color:var(--hijau)}
+.testi-loc{font-size:.7rem;color:var(--muted)}
+
+/* ── CTA ── */
+#cta{
+  background:linear-gradient(135deg,var(--hijau),#0d2010);
+  text-align:center;padding:90px 56px;position:relative;overflow:hidden;
+}
+#cta::before{content:'🌿';position:absolute;font-size:320px;opacity:.03;top:50%;left:50%;transform:translate(-50%,-50%)}
+#cta h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:#fff;margin-bottom:14px;letter-spacing:-.03em}
+#cta h2 em{color:var(--kuning);font-style:italic}
+#cta p{font-size:.95rem;color:rgba(255,255,255,.5);margin-bottom:36px;font-weight:300}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.wa-btn{
+  display:flex;align-items:center;gap:10px;
+  background:#25D366;color:#fff;font-weight:700;font-size:.9rem;
+  padding:15px 30px;border-radius:50px;text-decoration:none;transition:all .25s;
+}
+.wa-btn:hover{background:#1da851;transform:translateY(-2px);box-shadow:0 12px 32px rgba(37,211,102,.3)}
+
+/* ── FOOTER ── */
+footer{
+  background:#0d1f0d;padding:44px 56px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;
+}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--kuning)}
+.footer-info{font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.9;margin-top:6px}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.3);text-decoration:none;font-size:.76rem;transition:color .2s}
+.footer-links a:hover{color:var(--kuning)}
+.footer-copy{font-size:.7rem;color:rgba(255,255,255,.18);margin-top:8px}
+
+/* ── CART FLOAT ── */
+.cart-float{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  background:var(--oranye);color:#fff;border:none;border-radius:50px;
+  padding:13px 22px;font-size:.85rem;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 32px rgba(232,98,26,.4);transition:all .3s;font-family:inherit;
+  transform:translateY(120px);opacity:0;
+}
+.cart-float.show{transform:translateY(0);opacity:1}
+.cart-float:hover{background:var(--hijau);transform:translateY(-2px)}
+.cart-float.show:hover{transform:translateY(-2px)}
+.cart-num{
+  background:#fff;color:var(--oranye);width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;
+}
+
+/* ── CART MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:300;backdrop-filter:blur(5px);display:flex;align-items:flex-end;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.modal-overlay.show{opacity:1;pointer-events:all}
+.cart-panel{
+  background:var(--krem);border-radius:24px 24px 0 0;width:100%;max-height:82vh;overflow-y:auto;
+  padding:28px;transform:translateY(100%);transition:transform .35s;
+}
+.modal-overlay.show .cart-panel{transform:translateY(0)}
+.cp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.cp-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--hijau)}
+.cp-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted)}
+.cp-close:hover{color:var(--hijau)}
+.cp-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--krem2)}
+.cp-emoji{font-size:2rem}
+.cp-info{flex:1}
+.cp-name{font-size:.88rem;font-weight:700;color:var(--hijau)}
+.cp-price{font-size:.8rem;color:var(--oranye);font-weight:600}
+.cp-qty{display:flex;align-items:center;gap:8px}
+.cp-qbtn{width:28px;height:28px;border-radius:8px;background:var(--krem2);border:none;cursor:pointer;font-size:1rem;font-weight:700;color:var(--hijau);transition:background .2s}
+.cp-qbtn:hover{background:var(--lime);color:#fff}
+.cp-total{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--oranye);margin:18px 0 12px;text-align:right}
+.order-btn{
+  width:100%;background:linear-gradient(135deg,var(--hijau3),var(--hijau));
+  color:#fff;font-weight:800;font-size:.95rem;padding:15px;
+  border:none;border-radius:50px;cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.order-btn:hover{opacity:.9;transform:translateY(-1px)}
+.empty-cart{text-align:center;padding:44px;color:var(--muted);font-size:.9rem;line-height:1.8}
+.empty-cart a{color:var(--oranye);font-weight:700}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:90px;right:28px;
+  background:var(--hijau);color:#fff;
+  padding:12px 20px;border-radius:12px;font-size:.82rem;font-weight:600;
+  z-index:9999;animation:fadeUp .3s ease;box-shadow:0 6px 24px rgba(26,58,26,.3);
+}
+
+/* ── REVEAL ANIM ── */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .75s ease,transform .75s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .menu-grid{grid-template-columns:repeat(2,1fr)}
+  .andalan-grid{grid-template-columns:1fr}
+  .paket-grid{grid-template-columns:1fr 1fr}
+  .sambal-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  nav{padding:14px 20px}
+  nav.scrolled{padding:10px 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero{padding:88px 20px 50px;flex-direction:column;min-height:auto}
+  .hero-right{position:relative;width:100%;height:260px;margin-top:28px}
+  .hero-visual{width:260px;height:260px}
+  .big-emoji{font-size:110px}
+  .glow-ring{width:220px;height:220px}.glow-ring2{width:170px;height:170px}
+  section{padding:64px 20px}
+  .paket-grid{grid-template-columns:1fr}
+  .cara-grid{grid-template-columns:repeat(2,1fr)}
+  .testi-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;padding:36px 20px;text-align:center}
+  .footer-links{justify-content:center}
+  .stats{flex-wrap:wrap}
+  .stat{flex:1 1 45%;border-right:none;border-bottom:1px solid rgba(255,255,255,.15);padding:14px}
+  .stat:last-child{border-bottom:none}
+}
+@media(max-width:600px){
+  .menu-grid{grid-template-columns:1fr}
+  .andalan-grid{grid-template-columns:1fr}
+  .sambal-grid{grid-template-columns:1fr 1fr}
+  .cara-grid{grid-template-columns:1fr 1fr}
+  .cara-step:not(:last-child)::after{display:none}
+  .hero h1{letter-spacing:-1px}
+}
+@media(max-width:380px){
+  .sambal-grid{grid-template-columns:1fr}
+  .cara-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">🌿 Mak <span>Joss</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#andalan">Andalan</a></li>
+    <li><a href="#paket">Paket</a></li>
+    <li><a href="#ulasan">Ulasan</a></li>
+    <li><a href="#cta" class="nav-cta">Pesan Sekarang</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Buka menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#menu" onclick="closeMobile()">Menu</a>
+  <a href="#andalan" onclick="closeMobile()">Andalan</a>
+  <a href="#paket" onclick="closeMobile()">Paket</a>
+  <a href="#ulasan" onclick="closeMobile()">Ulasan</a>
+  <a href="#cta" onclick="closeMobile()">Pesan</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><div class="badge-dot"></div> Warung Lalapan · Kraksaan</div>
+    <h1>Lalapan<br><span class="kuning">Pedas</span><br><span class="italic">Bikin Nagih!</span></h1>
+    <p class="hero-sub">
+      Nasi hangat, lauk goreng renyah, sambal ulek segar —<br>
+      <strong>Warung Mak Joss</strong> hadir dengan cita rasa yang bikin kamu balik lagi.
+    </p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">🍽 Lihat Menu Lengkap</a>
+      <a href="#cta" class="btn-ghost">📱 Pesan via WA</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="glow-ring2"></div>
+      <div class="glow-ring"></div>
+      <div class="big-emoji">🍽</div>
+      <div class="orbit">
+        <div class="orbit-item" style="top:0;left:50%;transform:translateX(-50%)">🌶️</div>
+        <div class="orbit-item" style="bottom:0;left:50%;transform:translateX(-50%)">🐟</div>
+        <div class="orbit-item" style="left:0;top:50%;transform:translateY(-50%)">🥬</div>
+        <div class="orbit-item" style="right:0;top:50%;transform:translateY(-50%)">🍚</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat reveal"><div class="stat-num">1000+</div><div class="stat-lbl">Pelanggan Setia</div></div>
+  <div class="stat reveal d1"><div class="stat-num">25+</div><div class="stat-lbl">Menu Pilihan</div></div>
+  <div class="stat reveal d2"><div class="stat-num">4.9⭐</div><div class="stat-lbl">Rating Rata-rata</div></div>
+  <div class="stat reveal d3"><div class="stat-num">Rp 8rb</div><div class="stat-lbl">Mulai Dari</div></div>
+</div>
+
+<!-- MENU KATALOG -->
+<section id="menu">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Menu Lengkap</div>
+      <h2 class="section-title">Pilih Lauk <em>Favoritmu</em></h2>
+      <p class="section-sub">Semua digoreng/dibakar fresh saat order masuk. Disajikan dengan nasi hangat, lalapan segar, dan sambal ulek istimewa.</p>
+    </div>
+    <div class="menu-tabs reveal">
+      <button class="menu-tab active" onclick="filterMenu('semua',this)">🍽 Semua</button>
+      <button class="menu-tab" onclick="filterMenu('ayam',this)">🍗 Ayam</button>
+      <button class="menu-tab" onclick="filterMenu('ikan',this)">🐟 Ikan</button>
+      <button class="menu-tab" onclick="filterMenu('seafood',this)">🦐 Seafood</button>
+      <button class="menu-tab" onclick="filterMenu('gorengan',this)">🧆 Gorengan</button>
+      <button class="menu-tab" onclick="filterMenu('minuman',this)">🥤 Minuman</button>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- ANDALAN -->
+<section id="andalan">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Menu Andalan</div>
+      <h2 class="section-title" style="color:#fff">Spesial dari <em style="color:var(--kuning)">Dapur Mak Joss</em></h2>
+      <p class="section-sub">Menu-menu legendaris yang selalu bikin pelanggan balik lagi — klik untuk tambah ke keranjang.</p>
+    </div>
+    <div class="andalan-grid" id="andalanGrid"></div>
+  </div>
+</section>
+
+<!-- PAKET -->
+<section id="paket">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-eyebrow" style="justify-content:center">Paket Hemat</div>
+      <h2 class="section-title">Makan Bareng, <em>Lebih Hemat!</em></h2>
+      <p class="section-sub" style="margin:0 auto 48px">Cocok buat makan siang kantor, kumpul keluarga, atau nongkrong bareng teman.</p>
+    </div>
+    <div class="paket-grid">
+      <div class="paket-card reveal">
+        <div class="paket-emoji">🍱</div>
+        <div class="paket-nama">Paket Sendiri</div>
+        <div class="paket-sub">Nasi + 1 Lauk</div>
+        <ul class="paket-isi">
+          <li>Nasi Putih Pulen</li>
+          <li>1 Lauk Pilihan (Ayam/Lele/Tahu/Tempe)</li>
+          <li>Lalapan Segar Komplit</li>
+          <li>Sambal Ulek Gratis</li>
+        </ul>
+        <div class="paket-harga">Rp 15.000</div>
+        <button class="paket-btn" onclick="orderPaket('Paket Sendiri','Rp 15.000')">Pesan Sekarang</button>
+      </div>
+      <div class="paket-card featured reveal d1">
+        <div class="paket-ribbon">Terlaris</div>
+        <div class="paket-emoji">🎉</div>
+        <div class="paket-nama">Paket Komplit</div>
+        <div class="paket-sub">Nasi + 2 Lauk + Sayur</div>
+        <ul class="paket-isi">
+          <li>Nasi Putih / Nasi Uduk</li>
+          <li>2 Lauk Pilihan</li>
+          <li>1 Porsi Sayur (Kangkung/Capcay)</li>
+          <li>Lalapan Segar Komplit</li>
+          <li>Sambal + Kecap Gratis</li>
+        </ul>
+        <div class="paket-harga">Rp 28.000</div>
+        <button class="paket-btn" onclick="orderPaket('Paket Komplit','Rp 28.000')">Pesan Sekarang</button>
+      </div>
+      <div class="paket-card reveal d2">
+        <div class="paket-emoji">👨‍👩‍👧‍👦</div>
+        <div class="paket-nama">Paket Keluarga</div>
+        <div class="paket-sub">Porsi 4–6 orang</div>
+        <ul class="paket-isi">
+          <li>Nasi 5 Porsi</li>
+          <li>Ayam Goreng 4 pcs</li>
+          <li>Lele Goreng 4 ekor</li>
+          <li>Tahu + Tempe 6 pcs</li>
+          <li>2 Porsi Sayur Kangkung</li>
+          <li>Lalapan + Sambal Bebas</li>
+        </ul>
+        <div class="paket-harga">Rp 75.000</div>
+        <button class="paket-btn" onclick="orderPaket('Paket Keluarga','Rp 75.000')">Pesan Sekarang</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARA ORDER -->
+<section id="cara">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-eyebrow" style="justify-content:center">Cara Order</div>
+      <h2 class="section-title">Gampang Banget! <em>✨</em></h2>
+      <p class="section-sub" style="margin:0 auto 48px">Order lalapan favoritmu dalam 4 langkah mudah.</p>
+    </div>
+    <div class="cara-grid">
+      <div class="cara-step reveal">
+        <div class="step-num">1</div>
+        <div class="step-emoji">📱</div>
+        <div class="step-title">Pilih Menu</div>
+        <p class="step-desc">Pilih lauk dan tambahan dari katalog menu lengkap di atas</p>
+      </div>
+      <div class="cara-step reveal d1">
+        <div class="step-num">2</div>
+        <div class="step-emoji">🛒</div>
+        <div class="step-title">Isi Keranjang</div>
+        <p class="step-desc">Klik tombol + untuk masukkan menu ke keranjang pesanan</p>
+      </div>
+      <div class="cara-step reveal d2">
+        <div class="step-num">3</div>
+        <div class="step-emoji">💬</div>
+        <div class="step-title">Kirim via WA</div>
+        <p class="step-desc">Pesanan dikirim otomatis ke WhatsApp kami lengkap dengan total harga</p>
+      </div>
+      <div class="cara-step reveal d3">
+        <div class="step-num">4</div>
+        <div class="step-emoji">🍽</div>
+        <div class="step-title">Makan!</div>
+        <p class="step-desc">Datang ke warung atau tunggu kiriman — lauk digoreng fresh!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAMBAL -->
+<section id="sambal" style="padding:80px 56px">
+  <div class="container">
+    <div class="sambal-inner">
+      <div class="reveal">
+        <div class="section-eyebrow" style="justify-content:center;color:rgba(255,255,255,.6)">Keunggulan Kami</div>
+        <h2>Sambalnya yang <em>Bikin Kangen!</em></h2>
+        <p>Semua sambal diulek segar setiap hari — tidak pakai pengawet, tidak pakai micin berlebih.</p>
+      </div>
+      <div class="sambal-grid reveal">
+        <div class="sambal-card">
+          <div class="sambal-emoji">🌶️</div>
+          <div class="sambal-nama">Sambal Merah</div>
+          <div class="sambal-desc">Klasik pedas gurih dari tomat, cabai merah, dan bawang yang diulek kasar</div>
+          <div class="sambal-level"><span class="chili">🌶️</span><span class="chili">🌶️</span><span class="chili">🌶️</span></div>
+        </div>
+        <div class="sambal-card">
+          <div class="sambal-emoji">🥬</div>
+          <div class="sambal-nama">Sambal Ijo</div>
+          <div class="sambal-desc">Segar dan pedas dari cabai hijau segar, cocok untuk ayam goreng dan lele</div>
+          <div class="sambal-level"><span class="chili">🌶️</span><span class="chili">🌶️</span><span class="chili">🌶️</span><span class="chili">🌶️</span></div>
+        </div>
+        <div class="sambal-card">
+          <div class="sambal-emoji">🧅</div>
+          <div class="sambal-nama">Sambal Bawang</div>
+          <div class="sambal-desc">Aroma kuat bawang goreng dengan cabai rawit — favorit pecinta pedas sejati</div>
+          <div class="sambal-level"><span class="chili">🌶️</span><span class="chili">🌶️</span><span class="chili">🌶️</span><span class="chili">🌶️</span><span class="chili">🌶️</span></div>
+        </div>
+        <div class="sambal-card">
+          <div class="sambal-emoji">🍋</div>
+          <div class="sambal-nama">Sambal Jeruk</div>
+          <div class="sambal-desc">Pedas segar dengan perasan jeruk sambal khas — bikin ketagihan</div>
+          <div class="sambal-level"><span class="chili">🌶️</span><span class="chili">🌶️</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ULASAN -->
+<section id="ulasan">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-eyebrow" style="justify-content:center">Ulasan Pelanggan</div>
+      <h2 class="section-title">Kata <em>Mereka</em> 💬</h2>
+      <p class="section-sub" style="margin:0 auto">Ratusan pelanggan sudah puas. Kapan giliran kamu?</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Ayam gorengnya renyah banget, sambal ijonya nampol! Lalapannya segar dan porsinya gede. Udah jadi langganan tiap makan siang."</p>
+        <div class="testi-author">
+          <div class="testi-av">FR</div>
+          <div><div class="testi-name">Fatimah R.</div><div class="testi-loc">📍 Kraksaan</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Lele gorengnya garing luar, empuk dalam — pas banget! Sambal bawangnya super pedas tapi nagih. Harga terjangkau, porsi mantap. Wajib coba!"</p>
+        <div class="testi-author">
+          <div class="testi-av">BH</div>
+          <div><div class="testi-name">Budi Hartono</div><div class="testi-loc">📍 Paiton</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Paket keluarganya cocok banget buat makan bareng. Lalapannya lengkap, sayur kangkungnya enak, sambalnya bisa request pedas level berapa. 10/10!"</p>
+        <div class="testi-author">
+          <div class="testi-av">NS</div>
+          <div><div class="testi-name">Nur Sari</div><div class="testi-loc">📍 Probolinggo</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container">
+    <div class="reveal">
+      <h2>Udah lapar?<br><em>Yuk Mampir!</em></h2>
+      <p>Lauk digoreng fresh, sambal diulek segar — makan enak tanpa bikin kantong jebol.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/6285335101970?text=Halo%20Warung%20Mak%20Joss!%20Saya%20mau%20pesan%20ya%20🍽" class="wa-btn" target="_blank">
+          <span style="font-size:1.3rem">💬</span> Order via WhatsApp
+        </a>
+        <a href="#menu" class="btn-ghost" style="color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.2)">🍽 Lihat Menu Dulu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">🌿 Warung Mak Joss</div>
+    <div class="footer-info">
+      📍 Kraksaan, Probolinggo, Jawa Timur<br>
+      📱 0853-3510-1970<br>
+      🕐 Setiap Hari · 10.00 – 22.00 WIB
+    </div>
+  </div>
+  <div>
+    <div class="footer-links">
+      <a href="#menu">Menu</a>
+      <a href="#paket">Paket</a>
+      <a href="#ulasan">Ulasan</a>
+      <a href="https://wa.me/6285335101970" target="_blank">WhatsApp</a>
+    </div>
+    <div class="footer-copy">© 2025 Warung Mak Joss. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- CART FLOAT -->
+<button class="cart-float" id="cartFloat" onclick="toggleCart()">
+  🛒 Keranjang <span class="cart-num" id="cartNum">0</span>
+</button>
+
+<!-- CART MODAL -->
+<div class="modal-overlay" id="cartModal" onclick="closeCartOutside(event)">
+  <div class="cart-panel">
+    <div class="cp-header">
+      <div class="cp-title">Keranjang Pesanan 🍽</div>
+      <button class="cp-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div id="cartContent"></div>
+  </div>
+</div>
+
+<script>
+/* ── DATA MENU ── */
+const menuData = [
+  // AYAM
+  {id:1,nama:'Ayam Goreng Kampung',desc:'Ayam kampung digoreng krispy golden brown, gurih meresap sampai tulang.',harga:18000,emoji:'🍗',badge:'badge-hot',label:'🔥 Terpopuler',bg:'#8b5e1a',kat:'ayam'},
+  {id:2,nama:'Ayam Bakar Kecap',desc:'Ayam dimarinasi bumbu rempah lalu dibakar dengan olesan kecap manis.',harga:20000,emoji:'🍖',badge:'badge-best',label:'⭐ Andalan',bg:'#6b3a10',kat:'ayam'},
+  {id:3,nama:'Ayam Penyet Sambal',desc:'Ayam goreng empuk dipenyet di cobek, disajikan dengan sambal merah/ijo.',harga:18000,emoji:'🐔',badge:'badge-pedes',label:'🌶️ Pedas Nagih',bg:'#c0392b',kat:'ayam'},
+  {id:4,nama:'Ayam Goreng Kremes',desc:'Ayam goreng berbumbu dengan taburan kremes renyah — tekstur double krispy.',harga:20000,emoji:'✨',badge:'badge-new',label:'✨ New Menu',bg:'#d4a017',kat:'ayam'},
+  // IKAN
+  {id:5,nama:'Lele Goreng Jumbo',desc:'Lele segar ukuran jumbo digoreng hingga kulit super garing, daging tetap lembut.',harga:15000,emoji:'🐟',badge:'badge-hot',label:'🔥 Laris Manis',bg:'#2d5a8a',kat:'ikan'},
+  {id:6,nama:'Ikan Nila Goreng',desc:'Ikan nila segar digoreng utuh sampai matang merata, gurih dan nikmat.',harga:18000,emoji:'🐠',badge:'badge-best',label:'⭐ Favorit',bg:'#1a6b6b',kat:'ikan'},
+  {id:7,nama:'Ikan Bawal Bakar',desc:'Bawal dibakar dengan bumbu kecap pedas, aroma bakar yang menggugah selera.',harga:25000,emoji:'🔥',badge:'badge-best',label:'⭐ Recommended',bg:'#3a2010',kat:'ikan'},
+  {id:8,nama:'Lele Bakar Pedas',desc:'Lele dibakar dengan olesan bumbu pedas manis — perpaduan sempurna rasa bakar.',harga:17000,emoji:'🌶️',badge:'badge-pedes',label:'🌶️ Level Pedes',bg:'#8b2020',kat:'ikan'},
+  // SEAFOOD
+  {id:9,nama:'Udang Goreng Tepung',desc:'Udang segar berbalut tepung bumbu crispy — gurih renyah bikin nagih.',harga:28000,emoji:'🦐',badge:'badge-hot',label:'🔥 Hits!',bg:'#c05a1a',kat:'seafood'},
+  {id:10,nama:'Cumi Goreng Tepung',desc:'Cumi segar ukuran besar digoreng tepung — kenyal di dalam, krispy di luar.',harga:30000,emoji:'🦑',badge:'badge-best',label:'⭐ Bestseller',bg:'#4a2a6a',kat:'seafood'},
+  {id:11,nama:'Kepiting Saus Padang',desc:'Kepiting segar dimasak saus padang pedas gurih — cocok buat makan bareng.',harga:45000,emoji:'🦀',badge:'badge-new',label:'✨ Spesial',bg:'#8b2a10',kat:'seafood'},
+  // GORENGAN
+  {id:12,nama:'Tahu Tempe Goreng',desc:'Tahu dan tempe goreng renyah, cocok sebagai pendamping atau lauk utama.',harga:8000,emoji:'🧆',badge:'badge-best',label:'⭐ Paling Hemat',bg:'#8b6010',kat:'gorengan'},
+  {id:13,nama:'Tempe Penyet',desc:'Tempe digoreng krispy lalu dipenyet dengan sambal bawang mentah yang segar.',harga:8000,emoji:'🫘',badge:'badge-hot',label:'🔥 Favorit',bg:'#6b4a10',kat:'gorengan'},
+  {id:14,nama:'Terong Goreng/Penyet',desc:'Terong digoreng matang atau dipenyet dengan sambal — lalapan klasik yang segar.',harga:8000,emoji:'🍆',badge:'badge-best',label:'⭐ Pelengkap',bg:'#5a1a8b',kat:'gorengan'},
+  {id:15,nama:'Usus Goreng Crispy',desc:'Usus ayam digoreng krispy — camilan gurih yang selalu habis duluan di warung.',harga:12000,emoji:'🥚',badge:'badge-pedes',label:'🌶️ Krispy Pedas',bg:'#8b4010',kat:'gorengan'},
+  // MINUMAN
+  {id:16,nama:'Es Teh Manis',desc:'Teh manis dingin yang menyegarkan — teman makan lalapan paling sempurna.',harga:5000,emoji:'🧊',badge:'badge-best',label:'⭐ Wajib Ada',bg:'#1a5a3a',kat:'minuman'},
+  {id:17,nama:'Es Jeruk Segar',desc:'Perasan jeruk asli yang segar, manis-asam alami. Cocok penawar pedas.',harga:8000,emoji:'🍊',badge:'badge-hot',label:'🔥 Seger!',bg:'#c05a10',kat:'minuman'},
+  {id:18,nama:'Es Soda Gembira',desc:'Minuman soda susu legendaris — manis, segar, bikin mood naik!',harga:10000,emoji:'🥤',badge:'badge-new',label:'✨ Hits Anak Muda',bg:'#8b1a6b',kat:'minuman'},
+];
+
+const andalanData = [
+  {id:19,nama:'Ayam Bakar Mak Joss Spesial',desc:'Resep rahasia bumbu rempah Mak Joss — diungkep 2 jam, dibakar sempurna. Rasanya beda dari mana-mana!',harga:25000,emoji:'🍗'},
+  {id:20,nama:'Lele Goreng Jumbo + Sambal Bawang',desc:'Lele jumbo goreng dengan sambal bawang ulek segar yang jadi andalan warung sejak 2010.',harga:18000,emoji:'🐟'},
+  {id:21,nama:'Nasi Campur Mak Joss',desc:'Nasi + ayam + tempe + tahu + lalapan lengkap + sambal pilihan. Satu porsi, puas total!',harga:22000,emoji:'🍱'},
+  {id:22,nama:'Cah Kangkung Udang',desc:'Kangkung segar ditumis dengan udang dan bumbu bawang putih. Sayur terfavorit pelanggan!',harga:15000,emoji:'🥬'},
+];
+
+let cart=[];
+const allItems=[...menuData,...andalanData];
+
+/* ── RENDER ── */
+function renderAll(){
+  document.getElementById('menuGrid').innerHTML = menuData.map(m=>`
+    <div class="menu-card reveal" data-kat="${m.kat}">
+      <div class="menu-thumb" style="background:linear-gradient(135deg,${m.bg}30,${m.bg}60)">
+        <div class="thumb-bg" style="background:${m.bg}"></div>
+        <div class="food-emoji">${m.emoji}</div>
+      </div>
+      <div class="menu-body">
+        <span class="menu-badge ${m.badge}">${m.label}</span>
+        <div class="menu-nama">${m.nama}</div>
+        <div class="menu-desc">${m.desc}</div>
+        <div class="menu-footer">
+          <div class="menu-harga">Rp ${m.harga.toLocaleString('id-ID')}<span>/porsi</span></div>
+          <button class="add-btn" onclick="addToCart(${m.id})">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('andalanGrid').innerHTML = andalanData.map(m=>`
+    <div class="andalan-card reveal" onclick="addToCart(${m.id})">
+      <div class="andalan-emoji">${m.emoji}</div>
+      <div>
+        <div class="andalan-nama">${m.nama}</div>
+        <div class="andalan-desc">${m.desc}</div>
+        <div class="andalan-harga">Rp ${m.harga.toLocaleString('id-ID')}/porsi — klik untuk tambah</div>
+      </div>
+    </div>
+  `).join('');
+
+  initReveal();
+}
+
+/* ── FILTER ── */
+function filterMenu(cat,btn){
+  document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.menu-card').forEach(c=>{
+    const show=cat==='semua'||c.dataset.kat===cat;
+    c.style.display=show?'':'none';
+    if(show)c.style.animation='fadeUp .4s ease both';
+  });
+}
+
+/* ── CART ── */
+function addToCart(id){
+  const item=allItems.find(m=>m.id===id);if(!item)return;
+  const ex=cart.find(c=>c.id===id);
+  if(ex)ex.qty++;else cart.push({...item,qty:1});
+  updateCart();showToast('✅ '+item.nama+' ditambahkan!');
+}
+function changeQty(id,d){
+  const item=cart.find(c=>c.id===id);if(!item)return;
+  item.qty+=d;if(item.qty<=0)cart=cart.filter(c=>c.id!==id);
+  updateCart();
+}
+function updateCart(){
+  const total=cart.reduce((a,b)=>a+b.qty,0);
+  const harga=cart.reduce((a,b)=>a+b.harga*b.qty,0);
+  document.getElementById('cartNum').textContent=total;
+  const btn=document.getElementById('cartFloat');
+  btn.className='cart-float'+(total>0?' show':'');
+  const content=document.getElementById('cartContent');
+  if(!cart.length){
+    content.innerHTML='<div class="empty-cart">🍽<br><br>Keranjang masih kosong.<br><br><a href="#menu" onclick="toggleCart()">Pilih menu dulu →</a></div>';
+    return;
+  }
+  content.innerHTML=cart.map(c=>`
+    <div class="cp-item">
+      <div class="cp-emoji">${c.emoji}</div>
+      <div class="cp-info">
+        <div class="cp-name">${c.nama}</div>
+        <div class="cp-price">Rp ${(c.harga*c.qty).toLocaleString('id-ID')}</div>
+      </div>
+      <div class="cp-qty">
+        <button class="cp-qbtn" onclick="changeQty(${c.id},-1)">−</button>
+        <span style="font-weight:700;min-width:20px;text-align:center">${c.qty}</span>
+        <button class="cp-qbtn" onclick="changeQty(${c.id},1)">+</button>
+      </div>
+    </div>
+  `).join('')+
+  `<div class="cp-total">Total: Rp ${harga.toLocaleString('id-ID')}</div>
+   <button class="order-btn" onclick="orderWA()">💬 Order via WhatsApp</button>`;
+}
+function orderWA(){
+  let msg='Halo Warung Mak Joss! 🍽 Saya mau pesan:\n\n';
+  cart.forEach(c=>msg+=`• ${c.nama} x${c.qty} = Rp ${(c.harga*c.qty).toLocaleString('id-ID')}\n`);
+  msg+=`\nTotal: Rp ${cart.reduce((a,b)=>a+b.harga*b.qty,0).toLocaleString('id-ID')}\n\nMohon konfirmasi ya!`;
+  window.open('https://wa.me/6285335101970?text='+encodeURIComponent(msg),'_blank');
+}
+function orderPaket(nama,harga){
+  const msg=`Halo Warung Mak Joss! 🍽 Saya mau order ${nama} (${harga}). Mohon konfirmasi ya!`;
+  window.open('https://wa.me/6285335101970?text='+encodeURIComponent(msg),'_blank');
+}
+function toggleCart(){document.getElementById('cartModal').classList.toggle('show')}
+function closeCartOutside(e){if(e.target===document.getElementById('cartModal'))toggleCart()}
+function showToast(msg){
+  const n=document.createElement('div');n.className='toast';n.textContent=msg;
+  document.body.appendChild(n);setTimeout(()=>n.remove(),2200);
+}
+
+/* ── SCROLL REVEAL ── */
+function initReveal(){
+  const obs=new IntersectionObserver(e=>{
+    e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')});
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+});
+
+/* ── HAMBURGER ── */
+document.getElementById('hamburger').addEventListener('click',()=>{
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+function closeMobile(){document.getElementById('mobileNav').classList.remove('open')}
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+/* ── INIT ── */
+renderAll();
+updateCart();
+initReveal();
+</script>
+</body>
+</html>
